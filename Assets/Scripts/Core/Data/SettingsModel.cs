@@ -13,25 +13,25 @@ namespace Core.Data
 
    public class SettingsModel : IInitializable
    {
-      private Repository _repository;
+      private DataRepository _dataRepository;
       public ReadOnlyReactiveProperty<bool> MuteAudio { get; private set;}
       public ReactiveProperty<float> AudioVolume { get; private set;}
 
       public void Save()
       {
          var serializable = new SerializableSettingsModel { masterVolume = AudioVolume.Value };
-         _repository.SaveSettings(serializable);
+         _dataRepository.SaveSettings(serializable);
       }
 
       [Inject]
-      public SettingsModel(Repository repository)
+      public SettingsModel(DataRepository dataRepository)
       {
-         _repository = repository;
+         _dataRepository = dataRepository;
       }
       
       public void Initialize()
       {
-         var settings = _repository.LoadSettings();
+         var settings = _dataRepository.LoadSettings();
          AudioVolume = new ReactiveProperty<float>(settings.masterVolume);
          MuteAudio = AudioVolume.Select(val => val == 0).ToReadOnlyReactiveProperty();
       }

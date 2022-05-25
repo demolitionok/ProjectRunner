@@ -2,8 +2,9 @@
 
 namespace Core.Data
 {
-    public class Repository : IInitializable
+    public class DataRepository : IInitializable
     {
+        private DataProvider<Character> _characterDataProvider;
         private DataProvider<SerializableSettingsModel> _settingsDataProvider;
         private DataPaths _dataPaths;
         private SettingsPreset _settingsPreset;

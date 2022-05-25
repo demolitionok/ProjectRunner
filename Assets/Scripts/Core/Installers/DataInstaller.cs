@@ -11,13 +11,18 @@ namespace Core.Installers
 
         [SerializeField] private SettingsPreset _settingsPreset;
 
+        [SerializeField] private PlayerDataPreset _playerDataPreset;
+
         public override void InstallBindings()
         {
             Container.Bind<DataPaths>().FromInstance(_dataPathsConfig).AsSingle();
             Container.Bind<SettingsPreset>().FromInstance(_settingsPreset).AsSingle();
+            Container.Bind<PlayerDataPreset>().FromInstance(_playerDataPreset).AsSingle();
+            
             Container.BindInterfacesAndSelfTo<DataRepository>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<SettingsModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerData>().AsSingle();
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class SettingsPreset : ScriptableObject
 {
     [SerializeField]
-    private SerializableSettingsModel _settingsModel;
+    private SettingsModel _settingsModel;
 
-    public SerializableSettingsModel Preset => _settingsModel;
+    public SettingsModel Preset => _settingsModel;
 }

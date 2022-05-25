@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dataPathsConfig: {fileID: 11400000, guid: 8b3510163086cb8449df134d66ad1027, type: 2}
   _settingsPreset: {fileID: 11400000, guid: 5877d37d876b29242b922602ec6dbf2a, type: 2}
+  _playerDataPreset: {fileID: 11400000, guid: 2a9fb7aad61e1894586a877e04415bcf, type: 2}

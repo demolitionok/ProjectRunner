@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22a071914fb40bc4f95bcdbb6f9ce57f, type: 3}
-  m_Name: SettingsPreset
+  m_Script: {fileID: 11500000, guid: 9a27a58c2bd645a4b2e94dca03421449, type: 3}
+  m_Name: PlayerDataPreset
   m_EditorClassIdentifier: 
-  _settingsModel:
-    _masterVolume:
-      value: 44.97
+  _playerDataPreset:
+    playerNickName:
+      value: nick

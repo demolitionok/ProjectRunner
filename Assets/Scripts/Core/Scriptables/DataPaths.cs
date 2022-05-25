@@ -12,12 +12,12 @@ namespace Core.Data
         {
             Json
         }
-        [SerializeField] private FileExtension fileExtension;
-        
+        [SerializeField]
+        private FileExtension fileExtension;
         [SerializeField]
         private string _settingsFileName;
         [SerializeField]
-        private string _saveFileName;
+        private string _playerDataFileName;
 
         private string GetExtensionString()
         {
@@ -28,9 +28,13 @@ namespace Core.Data
             };
         }
 
+        public string GetFilePathByName(string fileName) =>
+            Application.persistentDataPath + "/" + fileName + GetExtensionString();
+
         public string SettingsFileName => _settingsFileName;
-        public string SaveFileName => _saveFileName;
+        public string PlayerDataFileName => _playerDataFileName;
         
-        public string SettingsFilePath => Application.persistentDataPath + "/" + _settingsFileName + GetExtensionString();
+        public string SettingsFilePath => GetFilePathByName(_settingsFileName);
+        public string PlayerDataFilePath => GetFilePathByName(_playerDataFileName);
     }
 }

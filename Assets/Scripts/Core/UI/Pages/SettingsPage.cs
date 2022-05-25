@@ -20,25 +20,26 @@ namespace Core.UI.Pages
         [SerializeField] private Button _saveButton;
 
         [Inject]
-        public void Init(SettingsModel settings)
+        public void Init(SettingsModel settings, DataRepository dataRepository)
         {
             _settings = settings;
+            _dataRepository = dataRepository;
         }
 
         public override void Start()
         {
             base.Start();
             
-            _settings.AudioVolume.SubscribeWithState(
+            _settings.MasterVolumeProperty.SubscribeWithState(
                 _volumeValueText,
                 (volumeLevel, t) => t.text = (volumeLevel == 0) ? "Muted" : volumeLevel.ToString()
             ).AddTo(this);
 
             _volumeSlider.onValueChanged.AsObservable().Subscribe(
-                val => _settings.AudioVolume.Value = val
+                val => _settings.MasterVolumeProperty.Value = val
             ).AddTo(this);
 
-            _settings.AudioVolume.SubscribeWithState(
+            _settings.MasterVolumeProperty.SubscribeWithState(
                 _volumeSlider,
                 (volume, slider) => slider.value = volume
             );
@@ -47,7 +48,7 @@ namespace Core.UI.Pages
                 _ => UIManager.ReplacePage<MainMenuPage>()
             ).AddTo(this);
 
-            _saveButton.onClick.AsObservable().Subscribe(_ => _settings.Save());
+            _saveButton.onClick.AsObservable().Subscribe(_ => _dataRepository.SaveSettings(_settings));
         }
 
         public override void Open()

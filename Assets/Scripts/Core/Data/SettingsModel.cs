@@ -1,28 +1,27 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
 using UniRx;
 namespace Core.Data
 {
-   [Serializable]
-   public class SerializableSettingsModel
-   {
-      [Range(0f, 100f)]
-      public float masterVolume;
-   }
 
+   [Serializable]
    public class SettingsModel : IInitializable
    {
       private DataRepository _dataRepository;
+
+      [RangeReactiveProperty(0f, 100f)]
+      [SerializeField]
+      [JsonProperty]
+      private FloatReactiveProperty _masterVolume;
+      
+      
+      [JsonIgnore]
       public ReadOnlyReactiveProperty<bool> MuteAudio { get; private set;}
-      public ReactiveProperty<float> AudioVolume { get; private set;}
-
-      public void Save()
-      {
-         var serializable = new SerializableSettingsModel { masterVolume = AudioVolume.Value };
-         _dataRepository.SaveSettings(serializable);
-      }
-
+      [JsonIgnore]
+      public FloatReactiveProperty MasterVolumeProperty { get => _masterVolume; private set => _masterVolume = value; }
+      
       [Inject]
       public SettingsModel(DataRepository dataRepository)
       {
@@ -32,8 +31,8 @@ namespace Core.Data
       public void Initialize()
       {
          var settings = _dataRepository.LoadSettings();
-         AudioVolume = new ReactiveProperty<float>(settings.masterVolume);
-         MuteAudio = AudioVolume.Select(val => val == 0).ToReadOnlyReactiveProperty();
+         MasterVolumeProperty = new FloatReactiveProperty(settings.MasterVolumeProperty.Value);
+         MuteAudio = MasterVolumeProperty.Select(val => val == 0).ToReadOnlyReactiveProperty();
       }
    }
 }

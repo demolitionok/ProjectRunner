@@ -3,7 +3,6 @@ using UniRx;
 using UnityEngine.UI;
 using Core.Data;
 using TMPro;
-using Unity.VisualScripting;
 using Zenject;
 
 namespace Core.UI.Pages

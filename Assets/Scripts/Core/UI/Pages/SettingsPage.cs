@@ -9,7 +9,7 @@ namespace Core.UI.Pages
 {
     public class SettingsPage : Page
     {
-        private DataRepository _dataRepository;
+        private IWriteDataRepository _writeRepository;
         private SettingsModel _settings;
 
         [SerializeField] private Slider _volumeSlider;
@@ -20,10 +20,10 @@ namespace Core.UI.Pages
         [SerializeField] private Button _saveButton;
 
         [Inject]
-        public void Init(SettingsModel settings, DataRepository dataRepository)
+        public void Init(SettingsModel settings, IWriteDataRepository writeRepository)
         {
             _settings = settings;
-            _dataRepository = dataRepository;
+            _writeRepository = writeRepository;
         }
 
         public override void Start()
@@ -48,7 +48,7 @@ namespace Core.UI.Pages
                 _ => UIManager.ReplacePage<MainMenuPage>()
             ).AddTo(this);
 
-            _saveButton.onClick.AsObservable().Subscribe(_ => _dataRepository.SaveSettings(_settings));
+            _saveButton.onClick.AsObservable().Subscribe(_ => _writeRepository.SaveSettings(_settings));
         }
 
         public override void Open()

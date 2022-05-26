@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Character.Data;
 
 namespace Core.Data
 {

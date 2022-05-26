@@ -1,6 +1,7 @@
 using Core.Data;
 using UnityEngine;
 using Zenject;
+using Character.Data;
 
 namespace Core.Installers
 {
@@ -19,7 +20,7 @@ namespace Core.Installers
             Container.Bind<SettingsPreset>().FromInstance(_settingsPreset).AsSingle();
             Container.Bind<PlayerDataPreset>().FromInstance(_playerDataPreset).AsSingle();
             
-            Container.BindInterfacesAndSelfTo<DataRepository>().AsSingle();
+            Container.Bind(typeof(IInitializable), typeof(IReadDataRepository), typeof(IWriteDataRepository), typeof(IDataRepository)).To<DataRepository>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<SettingsModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerData>().AsSingle();

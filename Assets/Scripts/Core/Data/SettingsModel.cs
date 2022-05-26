@@ -9,7 +9,7 @@ namespace Core.Data
    [Serializable]
    public class SettingsModel : IInitializable
    {
-      private DataRepository _dataRepository;
+      private IReadDataRepository _dataRepository;
 
       [RangeReactiveProperty(0f, 100f)]
       [SerializeField]
@@ -23,7 +23,7 @@ namespace Core.Data
       public FloatReactiveProperty MasterVolumeProperty { get => _masterVolume; private set => _masterVolume = value; }
       
       [Inject]
-      public SettingsModel(DataRepository dataRepository)
+      public SettingsModel(IReadDataRepository dataRepository)
       {
          _dataRepository = dataRepository;
       }

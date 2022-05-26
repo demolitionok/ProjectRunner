@@ -1,8 +1,25 @@
 ﻿using Zenject;
+using Character.Data;
 
 namespace Core.Data
 {
-    public class DataRepository : IInitializable
+    public interface IReadDataRepository
+    {
+        public SettingsModel LoadSettings();
+        public PlayerData LoadPlayerData();
+    }
+
+    public interface IWriteDataRepository
+    {
+        public void SaveSettings(SettingsModel settingsModel);
+        public void SavePlayerData(PlayerData data);
+    }
+
+    public interface IDataRepository : IReadDataRepository, IWriteDataRepository
+    {
+    }
+
+    public class DataRepository : IInitializable, IDataRepository
     {
         private DataProvider<PlayerData> _playerDataProvider;
         private DataProvider<SettingsModel> _settingsDataProvider;
@@ -11,7 +28,6 @@ namespace Core.Data
         private PlayerDataPreset _playerDataPreset;
 
         public SettingsModel LoadSettings() => _settingsDataProvider.Load();
-
         public void SaveSettings(SettingsModel settingsModel) => _settingsDataProvider.Save(settingsModel);
 
         public PlayerData LoadPlayerData() => _playerDataProvider.Load();

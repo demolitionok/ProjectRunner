@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UniRx;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Core.Data;
 using TMPro;
@@ -26,7 +27,8 @@ namespace Core.UI.Pages
         {
             base.Start();
 
-            _startBtn.onClick.AsObservable().Subscribe(_ => Debug.Log("Start game")).AddTo(this);
+            // TODO: Implement scene loading better :)
+            _startBtn.onClick.AsObservable().Subscribe(_ => SceneManager.LoadScene("BattleScene")).AddTo(this);
             _settingsBtn.onClick.AsObservable().Subscribe(_ => UIManager.ReplacePage<SettingsPage>()).AddTo(this);
             _exitBtn.onClick.AsObservable().Subscribe(_ => Debug.Log("Should exit")).AddTo(this);
             _settingsModel.MuteAudio.SubscribeWithState( _audioInfoText, (isMuted, t) =>

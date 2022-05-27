@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         Observable
-            .EveryUpdate()
+            .EveryLateUpdate()
             .Where(_ => transform.position != target.position)
             .Subscribe(_ =>
             {

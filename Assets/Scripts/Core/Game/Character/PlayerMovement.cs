@@ -11,15 +11,12 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         var rb = GetComponent<Rigidbody2D>();
-        inputDir = new Vector2(0, 0);
 
         Observable
             .EveryFixedUpdate()
             .Subscribe(_ =>
             {
-                inputDir.x = Input.GetAxis("Horizontal");
-                inputDir.y = Input.GetAxis("Vertical");
-                rb.MovePosition(rb.position + inputDir.normalized * speed * Time.deltaTime);
+                rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed;
             }).AddTo(this);
     }
 }

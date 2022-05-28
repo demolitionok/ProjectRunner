@@ -11,8 +11,9 @@ namespace Core.Installers
 
         public override void InstallBindings()
         {
-            Debug.Log("Installed");
+            Container.Bind<MainMenuSceneManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<UIManager>().FromComponentInNewPrefab(uiManagerPrefab).AsSingle();
+            Debug.Log("Installed");
         }
     }
 }

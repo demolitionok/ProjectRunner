@@ -25,6 +25,7 @@ namespace Core.Data
       [Inject]
       public SettingsModel(IReadDataRepository dataRepository)
       {
+         Debug.Log("Created new");
          _dataRepository = dataRepository;
       }
       

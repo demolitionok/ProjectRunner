@@ -16,11 +16,13 @@ namespace Core.UI.Pages
         [SerializeField] private TextMeshProUGUI _audioInfoText;
 
         private SettingsModel _settingsModel;
+        private MainMenuSceneManager _sceneManager;
 
         [Inject]
-        private void Init(SettingsModel settingsModel)
+        private void Init(SettingsModel settingsModel, MainMenuSceneManager sceneManager)
         {
             _settingsModel = settingsModel;
+            _sceneManager = sceneManager;
         }
 
         public override void Start()
@@ -28,7 +30,7 @@ namespace Core.UI.Pages
             base.Start();
 
             // TODO: Implement scene loading better :)
-            _startBtn.onClick.AsObservable().Subscribe(_ => SceneManager.LoadScene("BattleScene")).AddTo(this);
+            _startBtn.onClick.AsObservable().Subscribe(_ => _sceneManager.LoadGameLevel()).AddTo(this);
             _settingsBtn.onClick.AsObservable().Subscribe(_ => UIManager.ReplacePage<SettingsPage>()).AddTo(this);
             _exitBtn.onClick.AsObservable().Subscribe(_ => Debug.Log("Should exit")).AddTo(this);
             _settingsModel.MuteAudio.SubscribeWithState( _audioInfoText, (isMuted, t) =>

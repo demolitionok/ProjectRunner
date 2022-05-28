@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 1f;
     private Vector2 inputDir;
     
-    
     void Start()
     {
         var rb = GetComponent<Rigidbody2D>();

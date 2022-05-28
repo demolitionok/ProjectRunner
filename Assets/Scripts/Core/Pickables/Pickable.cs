@@ -1,12 +1,9 @@
-using System;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class MyItem : MonoBehaviour
+public class Pickable : MonoBehaviour
 {
-    public event Action OnPickUp;
-
     public void Start()
     {
         this.OnTriggerEnter2DAsObservable()
@@ -15,7 +12,7 @@ public class MyItem : MonoBehaviour
                 IPicker picker;
                 if (collision.TryGetComponent<IPicker>(out picker))
                 {
-                    Debug.Log(picker);
+                    Debug.Log($"{this} collided with {nameof(IPicker)}:{picker}");
                     if (picker.Pick(gameObject))
                     {
                         Destroy(gameObject);
@@ -23,7 +20,7 @@ public class MyItem : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("No picker");
+                    Debug.Log($"Collided object is not {nameof(IPicker)}");
                 }
             }).AddTo(this);
     }

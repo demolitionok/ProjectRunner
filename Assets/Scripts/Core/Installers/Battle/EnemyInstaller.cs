@@ -10,9 +10,11 @@ namespace Core.Installers
 
         public override void InstallBindings()
         {
+            
+            Container.BindInstance(BaseEnemyPrefab).WhenInjectedInto<Enemy.CustomFactory>();
             Container
                 .BindFactory<Enemy, Enemy.Factory>()
-                .FromComponentInNewPrefab(BaseEnemyPrefab);
+                .FromFactory<Enemy.CustomFactory>();
         }
     }
 }

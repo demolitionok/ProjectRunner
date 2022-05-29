@@ -7,9 +7,14 @@ namespace Core.Installers
     [CreateAssetMenu(fileName = "BattleInstaller", menuName = "Installers/BattleInstaller")]
     public class BattleInstaller : ScriptableObjectInstaller<BattleInstaller>
     {
+        [SerializeField] private GameObject _playerSpawnerPrefab;
+        [SerializeField] private GameObject _enemySpawnerPrefab;
+
         private SettingsModel _settings;
+        
         [Inject]
-        private void Init([InjectOptional]SettingsModel settingsModel) {
+        private void Init([InjectOptional]SettingsModel settingsModel)
+        {
             _settings = settingsModel;
         }
 

@@ -11,7 +11,7 @@ namespace Core.Installers
         public override void InstallBindings()
         {
             Container
-                .Bind<Player>()
+                .BindInterfacesAndSelfTo<Player>()
                 .FromComponentInNewPrefab(playerPrefab)
                 .AsSingle();
         }

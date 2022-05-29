@@ -7,7 +7,6 @@ namespace Core.Installers
     {
         [SerializeField]
         private GameObject uiManagerPrefab;
-        
 
         public override void InstallBindings()
         {

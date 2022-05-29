@@ -6,8 +6,12 @@ using UniRx;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Spawn rate in seconds")] [SerializeField]
+    private float _spawnRate = 1f;
+
     private Enemy.Factory _enemyFactory;
     private Player _player;
+
     [Inject]
     private void Init(Enemy.Factory enemyFactory, Player player)
     {
@@ -15,10 +19,11 @@ public class EnemySpawner : MonoBehaviour
         _player = player;
     }
 
-    IEnumerator SpawnEnemies()
+    private IEnumerator SpawnEnemies()
     {
-        while (true) {
-            yield return Observable.Timer(TimeSpan.FromSeconds(1)).ToYieldInstruction();
+        while (true)
+        {
+            yield return Observable.Timer(TimeSpan.FromSeconds(_spawnRate)).ToYieldInstruction();
             var enemy = _enemyFactory.Create();
             enemy.transform.position = _player.transform.position + new Vector3(3, 3, 0);
         }

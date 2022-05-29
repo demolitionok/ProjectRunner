@@ -7,11 +7,13 @@ public class PlayerSpawner : MonoBehaviour
     private Player _player;
 
     [Inject]
-    private void Init(Player player) {
+    private void Init(Player player)
+    {
         _player = player;
     }
 
-    public void Start() {
+    public void Start()
+    {
         _player.gameObject.SetActive(true);
     }
 }

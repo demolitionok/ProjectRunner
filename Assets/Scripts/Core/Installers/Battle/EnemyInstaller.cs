@@ -14,7 +14,7 @@ namespace Core.Installers
             Container.BindInstance(BaseEnemyPrefab).WhenInjectedInto<Enemy.CustomFactory>();
             Container
                 .BindFactory<Enemy, Enemy.Factory>()
-                .FromFactory<Enemy.CustomFactory>();
+                .FromMonoPoolableMemoryPool(x => x.WithInitialSize(100) .FromFactory<Enemy.CustomFactory>());
         }
     }
 }

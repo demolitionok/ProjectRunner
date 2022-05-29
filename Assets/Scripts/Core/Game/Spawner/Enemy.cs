@@ -1,10 +1,12 @@
 using UnityEngine;
+using System;
 using UniRx;
 using Zenject;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPoolable<IMemoryPool>, IDisposable
 {
     private Player _player;
+    private IMemoryPool _pool;
 
     [Inject]
     public void Init(Player player)
@@ -25,6 +27,24 @@ public class Enemy : MonoBehaviour
             }).AddTo(this);
     }
 
+    public void Dispose()
+    {
+        _pool.Despawn(this);
+    }
+
+    public void OnDespawned()
+    {
+        _pool = null;
+        // _velocity = Vector3.zero;
+    }
+
+    public void OnSpawned(IMemoryPool pool)
+    {
+        transform.position = Vector3.zero;
+        _pool = pool;
+        // _velocity = velocity;
+    }
+
     public class Factory : PlaceholderFactory<Enemy>
     {
     }
@@ -35,10 +55,7 @@ public class Enemy : MonoBehaviour
         private GameObject _baseEnemy;
 
         [Inject]
-        public CustomFactory(
-            DiContainer container,
-            GameObject baseEnemy,
-        )
+        public CustomFactory(DiContainer container, GameObject baseEnemy)
         {
             _container = container;
             _baseEnemy = baseEnemy;
